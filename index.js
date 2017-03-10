@@ -6,7 +6,7 @@ const Assistant = require('actions-on-google').ApiAiAssistant;
 const artists = require('./data/artists.js');
 
 const ARTIST_CHECK = 'artist-check';
-const ARTIST_ARGUMENT = 'artist';
+const ARTIST_ARGUMENT = 'Artist';
 
 // [START artistChecker]
 exports.artistChecker = (req, res) => {
@@ -16,15 +16,17 @@ exports.artistChecker = (req, res) => {
 
   // Make a silly name
   function checkArtist (assistant) {
-    const requestArtist = assistant.getArgument(ARTIST_ARGUMENT);
-    let artist = false;
-    for (let i = 0; i < artists.length; i ++) {
-      if (artists[i].toLowerCase() === requestArtist.toLowerCase()) {
-        artist = artists[i];
+    var requestArtist = assistant.getArgument(ARTIST_ARGUMENT);
+    console.log('REQUESTARTIST', requestArtist);
+    // assistant.ask('Hello!');
+    let chosenArtist = '';
+    for (var i = 0; i < artists.length; i ++) {
+      if (artists[i].name.toLowerCase() === requestArtist.toLowerCase()) {
+        chosenArtist = artists[i];
       }
     }
-    if (artist) {
-      assistant.tell(`${artist.name} ${artist.alive} ${artist.nationality} and some of ${artist.gender} famous works include: ${artist.famous_works}.`);
+    if (chosenArtist) {
+      assistant.tell(`${chosenArtist.name} ${chosenArtist.alive} ${chosenArtist.nationality} and some of ${chosenArtist.gender} famous works include: ${chosenArtist.famous_works}.`);
     } else {
       assistant.tell('Sorry, I don\'t know that artist, try asking me about someone else!');
     }
