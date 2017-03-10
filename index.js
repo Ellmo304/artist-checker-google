@@ -3,6 +3,8 @@
 process.env.DEBUG = 'actions-on-google:*';
 const Assistant = require('actions-on-google').ApiAiAssistant;
 
+const artists = require('./data/artists.js');
+
 const ARTIST_CHECK = 'artist-check';
 const ARTIST_ARGUMENT = 'artist';
 
@@ -14,10 +16,18 @@ exports.artistChecker = (req, res) => {
 
   // Make a silly name
   function checkArtist (assistant) {
-    let artist = assistant.getArgument(ARTIST_ARGUMENT);
-    assistant.tell('Alright, your silly name is ' +
-      color + ' ' + number +
-      '! I hope you like it. See you next time.');
+    const requestArtist = assistant.getArgument(ARTIST_ARGUMENT);
+    let artist = false;
+    for (let i = 0; i < artists.length; i ++) {
+      if (artists[i].toLowerCase() === requestArtist.toLowerCase()) {
+        artist = artists[i];
+      }
+    }
+    if (artist) {
+      assistant.tell(`${artist.name} ${artist.alive} ${artist.nationality} and some of ${artist.gender} famous works include: ${artist.famous_works}.`);
+    } else {
+      assistant.tell('Sorry, I don\'t know that artist, try asking me about someone else!');
+    }
   }
 
   let actionMap = new Map();
