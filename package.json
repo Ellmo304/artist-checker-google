@@ -1,0 +1,17 @@
+{
+  "name": "artist-checker-google",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "actions-on-google": "^1.0.8"
+  },
+  "devDependencies": {
+   "semistandard": "^9.1.0"
+ }
+}
