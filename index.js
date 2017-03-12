@@ -14,11 +14,10 @@ exports.artistChecker = (req, res) => {
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
-  // Make a silly name
+  // Check for artist match
   function checkArtist (assistant) {
     var requestArtist = assistant.getArgument(ARTIST_ARGUMENT);
     console.log('REQUESTARTIST', requestArtist);
-    // assistant.ask('Hello!');
     let chosenArtist = '';
     for (var i = 0; i < artists.length; i ++) {
       if (artists[i].name.toLowerCase() === requestArtist.toLowerCase()) {
